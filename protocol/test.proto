@@ -1,2 +1,25 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
+service TestService {
+    rpc TestCall (TestRequest) returns (TestResponse) {}
+    rpc TestCallNoParam (google.protobuf.Empty) returns (TestResponse) {}
+}
+
+message TestRequest {
+    string test_string = 1;
+    int32 test_int = 2;
+    float test_float = 3;
+}
+
+enum TestEnum {
+    OP1 = 0;
+    OTRAOP = 1;
+    ETC = 2;
+}
+
+message TestResponse {
+    string test_string = 1;
+    TestEnum test_enum = 2;
+}
