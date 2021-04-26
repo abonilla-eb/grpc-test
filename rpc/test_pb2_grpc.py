@@ -3,7 +3,7 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-import test_pb2 as test__pb2
+from rpc import test_pb2 as rpc_dot_test__pb2
 
 
 class TestServiceStub(object):
@@ -17,13 +17,13 @@ class TestServiceStub(object):
         """
         self.TestCall = channel.unary_unary(
                 '/TestService/TestCall',
-                request_serializer=test__pb2.TestRequest.SerializeToString,
-                response_deserializer=test__pb2.TestResponse.FromString,
+                request_serializer=rpc_dot_test__pb2.TestRequest.SerializeToString,
+                response_deserializer=rpc_dot_test__pb2.TestResponse.FromString,
                 )
         self.TestCallNoParam = channel.unary_unary(
                 '/TestService/TestCallNoParam',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=test__pb2.TestResponse.FromString,
+                response_deserializer=rpc_dot_test__pb2.TestResponse.FromString,
                 )
 
 
@@ -47,13 +47,13 @@ def add_TestServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'TestCall': grpc.unary_unary_rpc_method_handler(
                     servicer.TestCall,
-                    request_deserializer=test__pb2.TestRequest.FromString,
-                    response_serializer=test__pb2.TestResponse.SerializeToString,
+                    request_deserializer=rpc_dot_test__pb2.TestRequest.FromString,
+                    response_serializer=rpc_dot_test__pb2.TestResponse.SerializeToString,
             ),
             'TestCallNoParam': grpc.unary_unary_rpc_method_handler(
                     servicer.TestCallNoParam,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=test__pb2.TestResponse.SerializeToString,
+                    response_serializer=rpc_dot_test__pb2.TestResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -77,8 +77,8 @@ class TestService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/TestService/TestCall',
-            test__pb2.TestRequest.SerializeToString,
-            test__pb2.TestResponse.FromString,
+            rpc_dot_test__pb2.TestRequest.SerializeToString,
+            rpc_dot_test__pb2.TestResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -95,6 +95,6 @@ class TestService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/TestService/TestCallNoParam',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            test__pb2.TestResponse.FromString,
+            rpc_dot_test__pb2.TestResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

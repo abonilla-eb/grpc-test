@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
 
 service TestService {
     rpc TestCall (TestRequest) returns (TestResponse) {}
@@ -9,8 +10,7 @@ service TestService {
 
 message TestRequest {
     string test_string = 1;
-    int32 test_int = 2;
-    float test_float = 3;
+    google.protobuf.Struct test_dict = 2;
 }
 
 enum TestEnum {
